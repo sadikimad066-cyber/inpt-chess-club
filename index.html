@@ -17,7 +17,6 @@ body {
     font-family: 'Segoe UI', sans-serif;
 }
 
-
 .section-dark {
     background-color: #1a1a1a;
 }
@@ -29,9 +28,235 @@ h2 i, h4 i, .btn i {
     margin-right: 5px;
     color: #d4af37;
 }
+
+/* ── Back to Top ── */
+#backToTop {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    background: #d4af37;
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(212,175,55,0.5);
+    transition: opacity 0.3s;
+}
+
+/* ── Scroll Progress Bar ── */
+#scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: #d4af37;
+    z-index: 99999;
+    transition: width 0.1s linear;
+}
+
+/* ── Announcement Banner ── */
+#announcementBanner {
+    display: none;
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    background: #d4af37;
+    color: #000;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    z-index: 1040;
+    cursor: pointer;
+}
+
+/* ── Fade-in sections ── */
+.fade-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Card hover bounce ── */
+.bouncy-card {
+    transition: transform 0.2s ease;
+}
+.bouncy-card:hover {
+    transform: translateY(-8px) scale(1.03);
+}
+
+/* ── Highlighted card ── */
+.card-highlight {
+    border: 2px solid #d4af37 !important;
+    background: rgba(212,175,55,0.1) !important;
+}
+
+/* ── Tooltip ── */
+.chess-tooltip {
+    position: relative;
+}
+.chess-tooltip::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #d4af37;
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+.chess-tooltip:hover::after { opacity: 1; }
+
+/* ── Lock Overlay ── */
+#lockOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 99998;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#lockOverlay .lock-box {
+    text-align: center;
+    color: #d4af37;
+}
+#lockOverlay .lock-box i { font-size: 4rem; margin-bottom: 1rem; }
+#lockOverlay .lock-box h3 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+
+/* ── Modal Popup ── */
+#autoModal .modal-content {
+    background: #1a1a1a;
+    color: white;
+    border: 1px solid #d4af37;
+}
+#autoModal .modal-header { border-bottom: 1px solid #333; }
+#autoModal .modal-footer { border-top: 1px solid #333; }
+
+/* ── Dark Mode ── */
+body.dark-mode {
+    background-color: #000 !important;
+}
+body.light-mode {
+    background-color: #f5f0e8 !important;
+    color: #111 !important;
+}
+body.light-mode .section-dark { background-color: #e8e0d0 !important; }
+body.light-mode .navbar { background-color: #fff !important; }
+body.light-mode .navbar .nav-link,
+body.light-mode .navbar-brand { color: #111 !important; }
+body.light-mode footer { background-color: #ddd !important; color: #111 !important; }
+
+/* ── Progress Bar ── */
+#readingProgress {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #d4af37, #fff8dc);
+    width: 0%;
+    z-index: 99999;
+    transition: width 0.1s;
+}
+
+/* ── Typing cursor ── */
+.typing-cursor::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+    color: #d4af37;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ── Hide/Show toggle button area ── */
+#toggleJourneyBtn {
+    margin-bottom: 1.5rem;
+}
+
+/* ── Activity cards injected ── */
+.activity-card-injected {
+    border: 1px solid #d4af37;
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 1.5rem;
+    color: white;
+}
+
+/* ── New Badge ── */
+.new-badge {
+    background: #d4af37;
+    color: #000;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 7px;
+    border-radius: 10px;
+    vertical-align: middle;
+    margin-left: 6px;
+    text-transform: uppercase;
+}
+
+/* ── Parallax hero ── */
+#home {
+    background-attachment: fixed !important;
+}
 </style>
 </head>
 <body>
+
+<!-- Scroll Progress Bar -->
+<div id="scrollProgress"></div>
+
+<!-- Announcement Banner -->
+<div id="announcementBanner">
+  🏆 INPT Chess Open 2026 — Registrations are NOW OPEN! Click to close.
+</div>
+
+<!-- Back to Top -->
+<button id="backToTop" title="Back to Top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<!-- Lock Overlay -->
+<div id="lockOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:99998; justify-content:center; align-items:center; flex-direction:column;">
+  <div class="lock-box" style="text-align:center; color:#d4af37;">
+    <i class="fa-solid fa-lock" style="font-size:4rem; margin-bottom:1rem;"></i>
+    <h3 style="font-size:1.5rem; margin-bottom:1.5rem;">You have scrolled too far! 🔒</h3>
+    <button id="unlockBtn" class="btn btn-warning"><i class="fa-solid fa-unlock"></i> Unlock Page</button>
+  </div>
+</div>
+
+<!-- Auto Modal (10s) -->
+<div class="modal fade" id="autoModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fa-solid fa-chess-king highlight"></i> Welcome to INPT Chess Club!</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>🎉 Join us for the <strong>INPT Chess Open 2026</strong> — our annual flagship tournament. Compete, learn, and master the board!</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#join" class="btn btn-warning" data-bs-dismiss="modal">Join Now</a>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Later</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
@@ -47,6 +272,12 @@ h2 i, h4 i, .btn i {
         <li class="nav-item"><a class="nav-link" href="#journey">Journey</a></li>
         <li class="nav-item"><a class="nav-link" href="#tournaments">Tournaments</a></li>
         <li class="nav-item"><a class="nav-link" href="#join">Join</a></li>
+        <!-- Dark Mode Toggle -->
+        <li class="nav-item ms-2">
+          <button id="darkModeToggle" class="btn btn-sm btn-outline-warning">
+            <i class="fa-solid fa-moon"></i> Dark/Light
+          </button>
+        </li>
       </ul>
     </div>
   </div>
@@ -55,7 +286,7 @@ h2 i, h4 i, .btn i {
 <!-- ================= HERO SECTION ================= -->
 <section id="home" class="position-relative text-center text-white" style="
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-        url('unnamed.jpg')    no-repeat center center;
+        url('unnamed.jpg') no-repeat center center;
     background-size: cover;
     height: 100vh;
     display: flex;
@@ -63,7 +294,7 @@ h2 i, h4 i, .btn i {
     justify-content: center;
 ">
   <div class="container">
-    <h5 class="display-2 fw-bold">
+    <h5 id="heroTitle" class="display-2 fw-bold typing-cursor">
         <i class="fa-solid fa-chess-king"></i> MASTER THE BOARD <i class="fa-solid fa-chess-king"></i>
     </h5>
     <p class="lead mt-3">Welcome to the strategic heart of INPT Chess Club</p>
@@ -74,75 +305,128 @@ h2 i, h4 i, .btn i {
 </section>
 
 <!-- WHY CHESS -->
-<section id="why" class="py-5 text-center">
+<section id="why" class="py-5 text-center fade-section">
   <div class="container">
     <h2 class="fw-bold mb-4">
       <i class="fa-solid fa-chess-queen"></i> Why Chess? <i class="fa-solid fa-chess-queen"></i>
     </h2>
     <div class="row g-4">
       <div class="col-md-4">
-        <i class="fa-solid fa-brain display-4 highlight"></i>
-        <h5 class="mt-3"><i class="fa-solid fa-chess-knight"></i> Critical Thinking</h5>
-        <p>Develop deep analytical and strategic reasoning skills.</p>
+        <div class="p-4 border rounded bouncy-card">
+          <i class="fa-solid fa-brain display-4 highlight"></i>
+          <h5 class="mt-3"><i class="fa-solid fa-chess-knight"></i> Critical Thinking</h5>
+          <p>Develop deep analytical and strategic reasoning skills.</p>
+        </div>
       </div>
       <div class="col-md-4">
-        <i class="fa-solid fa-bolt display-4 highlight"></i>
-        <h5 class="mt-3"><i class="fa-solid fa-chess-rook"></i> Fast Decisions</h5>
-        <p>Train your mind to perform under pressure.</p>
+        <div class="p-4 border rounded bouncy-card">
+          <i class="fa-solid fa-bolt display-4 highlight"></i>
+          <h5 class="mt-3"><i class="fa-solid fa-chess-rook"></i> Fast Decisions</h5>
+          <p>Train your mind to perform under pressure.</p>
+        </div>
       </div>
       <div class="col-md-4">
-        <i class="fa-solid fa-trophy display-4 highlight"></i>
-        <h5 class="mt-3"><i class="fa-solid fa-chess-bishop"></i> Competitive Edge</h5>
-        <p>Represent INPT in high-level university tournaments.</p>
+        <div class="p-4 border rounded bouncy-card">
+          <i class="fa-solid fa-trophy display-4 highlight"></i>
+          <h5 class="mt-3"><i class="fa-solid fa-chess-bishop"></i> Competitive Edge</h5>
+          <p>Represent INPT in high-level university tournaments.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CHESS JOURNEY -->
-<section id="journey" class="section-dark py-5 text-center">
+<section id="journey" class="section-dark py-5 text-center fade-section">
   <div class="container">
-    <h2 class="fw-bold mb-5">
+    <h2 class="fw-bold mb-3">
       <i class="fa-solid fa-chess-pawn"></i> Your Chess Journey <i class="fa-solid fa-chess-pawn"></i>
     </h2>
-    <div class="row g-4">
+
+    <!-- Hide/Show Toggle Button -->
+    <button id="toggleJourneyBtn" class="btn btn-outline-warning btn-sm mb-4">
+      <i class="fa-solid fa-eye-slash"></i> Hide Journey Cards
+    </button>
+
+    <div id="journeyCards" class="row g-4">
       <div class="col-md-4">
-        <div class="p-4 border rounded">
+        <div class="p-4 border rounded bouncy-card journey-card" style="cursor:pointer;">
           <h4 class="highlight"><i class="fa-solid fa-chess-pawn"></i> Beginner</h4>
           <p>Learn rules, openings, and core tactics.</p>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="p-4 border rounded">
+        <div class="p-4 border rounded bouncy-card journey-card" style="cursor:pointer;">
           <h4 class="highlight"><i class="fa-solid fa-chess-knight"></i> Intermediate</h4>
           <p>Master positional play and mid-game strategies.</p>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="p-4 border rounded">
+        <div class="p-4 border rounded bouncy-card journey-card" style="cursor:pointer;">
           <h4 class="highlight"><i class="fa-solid fa-chess-queen"></i> Advanced</h4>
           <p>Compete in tournaments and analyze grandmaster games.</p>
         </div>
       </div>
     </div>
+
+    <!-- Card count display -->
+    <p id="cardCount" class="mt-3 text-warning" style="font-size:0.9rem;"></p>
+
+    <!-- Add Activity Section -->
+    <div class="mt-5">
+      <h4 class="fw-bold mb-3"><i class="fa-solid fa-plus highlight"></i> Activities</h4>
+      <div id="activitiesContainer" class="row g-4 justify-content-center">
+        <!-- dynamically injected cards appear here -->
+      </div>
+      <button id="addActivityBtn" class="btn btn-warning mt-4">
+        <i class="fa-solid fa-plus"></i> Add New Activity
+      </button>
+    </div>
+
   </div>
 </section>
 
 <!-- TOURNAMENT -->
-<section id="tournaments" class="py-5 text-center">
+<section id="tournaments" class="py-5 text-center fade-section">
   <div class="container">
     <h2 class="fw-bold mb-4">
       <i class="fa-solid fa-chess-rook"></i> INPT Chess Open 2026 <i class="fa-solid fa-chess-rook"></i>
     </h2>
     <p class="lead mb-4">Our annual flagship university competition.</p>
-    <a href="#" class="btn btn-outline-warning btn-lg">
+
+    <!-- Sample competition cards for traversal tasks -->
+    <div id="competitionCards" class="row g-4 justify-content-center">
+      <div class="col-md-4">
+        <div class="p-4 border rounded bouncy-card comp-card">
+          <h5>Blitz Tournament</h5>
+          <p>Fast-paced games, 5 minutes per player.</p>
+          <button class="btn btn-sm btn-outline-warning change-bg-btn">Change BG</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4 border rounded bouncy-card comp-card">
+          <h5>Rapid Tournament</h5>
+          <p>Strategic play with 15-minute time controls.</p>
+          <button class="btn btn-sm btn-outline-warning change-bg-btn">Change BG</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4 border rounded bouncy-card comp-card">
+          <h5>Classical Match</h5>
+          <p>Full-depth analysis, 90 minutes per player.</p>
+          <button class="btn btn-sm btn-outline-warning change-bg-btn">Change BG</button>
+        </div>
+      </div>
+    </div>
+
+    <a href="#" class="btn btn-outline-warning btn-lg mt-4">
       <i class="fa-solid fa-chess-king"></i> Register Now <i class="fa-solid fa-chess-king"></i>
     </a>
   </div>
 </section>
 
 <!-- JOIN CTA -->
-<section id="join" class="py-5 text-center">
+<section id="join" class="py-5 text-center fade-section">
   <div class="container">
     <h2 class="fw-bold mb-3">
       <i class="fa-solid fa-chess-king"></i> Ready to Make Your Move? <i class="fa-solid fa-chess-king"></i>
@@ -151,6 +435,14 @@ h2 i, h4 i, .btn i {
     <a href="#" class="btn btn-warning btn-lg">
       <i class="fa-solid fa-chess-pawn"></i> Become a Member <i class="fa-solid fa-chess-pawn"></i>
     </a>
+
+    <!-- Social icons with tooltip -->
+    <div class="mt-4 d-flex justify-content-center gap-3">
+      <a href="#" class="chess-tooltip" data-tip="Follow us on Twitter" style="color:#d4af37; font-size:1.5rem;"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#" class="chess-tooltip" data-tip="Join our Discord" style="color:#d4af37; font-size:1.5rem;"><i class="fa-brands fa-discord"></i></a>
+      <a href="#" class="chess-tooltip" data-tip="GitHub Repository" style="color:#d4af37; font-size:1.5rem;"><i class="fa-brands fa-github"></i></a>
+      <a href="#" class="chess-tooltip" data-tip="Chess.com Profile" style="color:#d4af37; font-size:1.5rem;"><i class="fa-solid fa-chess"></i></a>
+    </div>
   </div>
 </section>
 
@@ -159,6 +451,335 @@ h2 i, h4 i, .btn i {
   <p class="mb-0">© 2026 INPT Chess Club</p>
 </footer>
 
+<!-- Reading Progress Bar (bottom) -->
+<div id="readingProgress"></div>
+
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+$(document).ready(function () {
+
+  /* ══════════════════════════════════════════
+     1. NAVBAR COLOR CHANGE ON SCROLL
+  ══════════════════════════════════════════ */
+  $(window).on('scroll', function () {
+    if ($(this).scrollTop() > 80) {
+      $('nav.navbar').css({ 'background-color': '#d4af37', 'transition': 'background-color 0.4s ease' });
+      $('nav.navbar .nav-link, nav.navbar .navbar-brand').css('color', '#000');
+    } else {
+      $('nav.navbar').css('background-color', '#212529');
+      $('nav.navbar .nav-link, nav.navbar .navbar-brand').css('color', '');
+    }
+  });
+
+  /* ══════════════════════════════════════════
+     2. BADGE ON HERO TITLE (dynamically via jQuery)
+  ══════════════════════════════════════════ */
+  var $badge = $('<span>')
+    .addClass('badge bg-warning text-dark ms-3')
+    .css({ 'font-size': '0.5em', 'vertical-align': 'middle' })
+    .text('NEW SEASON');
+  $('#heroTitle').append($badge);
+
+  /* ══════════════════════════════════════════
+     3. HIDE / SHOW JOURNEY SECTION WITH BUTTON
+  ══════════════════════════════════════════ */
+  $('#toggleJourneyBtn').on('click', function () {
+    var $cards = $('#journeyCards');
+    if ($cards.is(':visible')) {
+      $cards.slideUp(400);
+      $(this).html('<i class="fa-solid fa-eye"></i> Show Journey Cards');
+    } else {
+      $cards.slideDown(400);
+      $(this).html('<i class="fa-solid fa-eye-slash"></i> Hide Journey Cards');
+    }
+  });
+
+  /* ══════════════════════════════════════════
+     4. BACK TO TOP BUTTON
+  ══════════════════════════════════════════ */
+  $(window).on('scroll', function () {
+    if ($(this).scrollTop() > 300) {
+      $('#backToTop').fadeIn(300);
+    } else {
+      $('#backToTop').fadeOut(300);
+    }
+  });
+  $('#backToTop').on('click', function () {
+    $('html, body').animate({ scrollTop: 0 }, 600);
+  });
+
+  /* ══════════════════════════════════════════
+     5. DYNAMICALLY ADD ACTIVITY CARD
+  ══════════════════════════════════════════ */
+  var activityCount = 0;
+  var activities = [
+    { icon: 'fa-chess-board', title: 'Puzzle Training', desc: 'Daily tactical puzzles to sharpen your calculation.' },
+    { icon: 'fa-video', title: 'Game Analysis', desc: 'Review grandmaster games and learn advanced patterns.' },
+    { icon: 'fa-users', title: 'Club Simul', desc: 'Play simultaneous exhibitions against the club champion.' },
+    { icon: 'fa-book-open', title: 'Opening Workshop', desc: 'Deep dive into popular openings with our coaches.' },
+  ];
+  $('#addActivityBtn').on('click', function () {
+    if (activityCount >= activities.length) {
+      $(this).text('No more activities to add!').prop('disabled', true);
+      return;
+    }
+    var a = activities[activityCount];
+    var $newCard = $('<div class="col-md-4">').html(
+      '<div class="activity-card-injected bouncy-card" style="cursor:pointer;">' +
+      '<i class="fa-solid ' + a.icon + ' display-4 highlight"></i>' +
+      '<h5 class="mt-3">' + a.title + '</h5>' +
+      '<p>' + a.desc + '</p>' +
+      '</div>'
+    ).hide();
+    $('#activitiesContainer').append($newCard);
+    $newCard.fadeIn(500);
+    activityCount++;
+    updateCardCount();
+  });
+
+  /* ══════════════════════════════════════════
+     6. CHANGE ALL SECTION TITLES COLOR
+  ══════════════════════════════════════════ */
+  // Uses one selector to paint every h2 — done at load for visual flair
+  $('section h2').css('color', '#d4af37');
+
+  /* ══════════════════════════════════════════
+     7. "NEW" BADGE ON FIRST COMPETITION CARD ONLY
+  ══════════════════════════════════════════ */
+  $('#competitionCards .comp-card:first h5').append(
+    $('<span>').addClass('new-badge').text('NEW')
+  );
+
+  /* ══════════════════════════════════════════
+     8. HOVER ANIMATION ON ALL CARDS (jQuery)
+  ══════════════════════════════════════════ */
+  $(document).on('mouseenter', '.bouncy-card', function () {
+    $(this).stop(true).animate({ marginTop: '-8px' }, 150);
+  }).on('mouseleave', '.bouncy-card', function () {
+    $(this).stop(true).animate({ marginTop: '0px' }, 150);
+  });
+
+  /* ══════════════════════════════════════════
+     9. ALERT ON JOURNEY CARD CLICK
+  ══════════════════════════════════════════ */
+  $(document).on('click', '.journey-card', function () {
+    var level = $(this).find('h4').text().replace(/\s+/g, ' ').trim();
+    alert('♟ You selected: ' + level);
+  });
+
+  /* ══════════════════════════════════════════
+     10. DOUBLE-CLICK ENLARGES A CARD
+  ══════════════════════════════════════════ */
+  $(document).on('dblclick', '.bouncy-card', function () {
+    if ($(this).data('enlarged')) {
+      $(this).animate({ fontSize: '1rem' }, 300).data('enlarged', false);
+    } else {
+      $(this).animate({ fontSize: '1.25rem' }, 300).data('enlarged', true);
+    }
+  });
+
+  /* ══════════════════════════════════════════
+     11. KEYBOARD EVENT — CHANGE BODY BG COLOR
+  ══════════════════════════════════════════ */
+  var bgColors = ['#0f0f0f', '#0a0a2e', '#0f1a0f', '#1a0a0a', '#1a1a0a'];
+  var bgIdx = 0;
+  $(document).on('keydown', function (e) {
+    // Press 'C' key to cycle background colors
+    if (e.key === 'c' || e.key === 'C') {
+      bgIdx = (bgIdx + 1) % bgColors.length;
+      $('body').animate({ backgroundColor: bgColors[bgIdx] }, 400);
+      $('body').css('background-color', bgColors[bgIdx]);
+    }
+  });
+
+  /* ══════════════════════════════════════════
+     12. FADE IN SECTIONS ON SCROLL (viewport)
+  ══════════════════════════════════════════ */
+  function checkFade() {
+    $('.fade-section').each(function () {
+      var top = $(this).offset().top;
+      var winBottom = $(window).scrollTop() + $(window).height();
+      if (winBottom > top + 60) {
+        $(this).addClass('visible');
+      }
+    });
+  }
+  $(window).on('scroll', checkFade);
+  checkFade(); // run on load
+
+  /* ══════════════════════════════════════════
+     13. SLIDING ANNOUNCEMENT BANNER
+  ══════════════════════════════════════════ */
+  setTimeout(function () {
+    $('#announcementBanner').slideDown(600);
+  }, 2000);
+  $('#announcementBanner').on('click', function () {
+    $(this).slideUp(400);
+  });
+
+  /* ══════════════════════════════════════════
+     14. ANIMATE HERO TEXT ON PAGE LOAD
+  ══════════════════════════════════════════ */
+  $('#heroTitle').hide().fadeIn(1200);
+  $('#home .lead').hide().delay(600).fadeIn(1000);
+  $('#home .btn').hide().delay(1100).fadeIn(800);
+
+  /* ══════════════════════════════════════════
+     15. SCROLL PROGRESS BAR
+  ══════════════════════════════════════════ */
+  $(window).on('scroll', function () {
+    var scrollTop = $(this).scrollTop();
+    var docHeight = $(document).height() - $(window).height();
+    var pct = (scrollTop / docHeight) * 100;
+    $('#scrollProgress').css('width', pct + '%');
+    $('#readingProgress').css('width', pct + '%');
+  });
+
+  /* ══════════════════════════════════════════
+     16. TRAVERSING — HIGHLIGHT JOURNEY CARD, REMOVE FROM SIBLINGS
+  ══════════════════════════════════════════ */
+  $(document).on('click', '.journey-card', function (e) {
+    e.stopPropagation();
+    $(this).addClass('card-highlight')
+           .siblings().removeClass('card-highlight');
+  });
+
+  /* ══════════════════════════════════════════
+     17. FIRST & LAST COMPETITION CARDS — STYLE DIFFERENTLY
+  ══════════════════════════════════════════ */
+  $('#competitionCards .comp-card:first-child').css('border-color', '#d4af37');
+  $('#competitionCards .comp-card:last-child').css('border-color', '#888');
+
+  /* ══════════════════════════════════════════
+     18. .find() — MODIFY PARAGRAPH INSIDE FIRST COMP CARD
+  ══════════════════════════════════════════ */
+  $('#competitionCards .comp-card').first()
+    .find('p')
+    .css({ 'font-style': 'italic', 'color': '#d4af37' });
+
+  /* ══════════════════════════════════════════
+     19. .parent() — CHANGE CARD BG WHEN BUTTON CLICKED
+  ══════════════════════════════════════════ */
+  $(document).on('click', '.change-bg-btn', function () {
+    $(this).closest('.comp-card')
+           .css('background-color', 'rgba(212,175,55,0.15)');
+    $(this).text('Changed!').prop('disabled', true);
+  });
+
+  /* ══════════════════════════════════════════
+     20. COUNT CARDS & DISPLAY
+  ══════════════════════════════════════════ */
+  function updateCardCount() {
+    var total = $('.bouncy-card').length;
+    $('#cardCount').text('♟ Total cards on the page: ' + total);
+  }
+  updateCardCount();
+
+  /* ══════════════════════════════════════════
+     21. CHAINING — Hide, change color, fade in
+  ══════════════════════════════════════════ */
+  // Applied to footer on load: hide → change color → fade in
+  $('footer').hide().css('background-color', '#111').fadeIn(1500);
+
+  /* ══════════════════════════════════════════
+     22. CHAINING — Animate & style first comp card
+  ══════════════════════════════════════════ */
+  $('#competitionCards .comp-card').first()
+    .hide()
+    .css({ 'border-width': '2px', 'border-style': 'solid' })
+    .fadeIn(1000);
+
+  /* ══════════════════════════════════════════
+     23. CHAINING — Apply multiple CSS to all cards
+  ══════════════════════════════════════════ */
+  $('.bouncy-card')
+    .css('border-radius', '10px')
+    .css('box-shadow', '0 4px 20px rgba(0,0,0,0.4)')
+    .css('cursor', 'pointer');
+
+  /* ══════════════════════════════════════════
+     24. LOCK OVERLAY after scrolling 300px
+         (unlock to restore scroll)
+  ══════════════════════════════════════════ */
+  var lockTriggered = false;
+  $(window).on('scroll', function () {
+    if (!lockTriggered && $(this).scrollTop() > 800) {
+      lockTriggered = true;
+      $('body').css('overflow', 'hidden');
+      $('#lockOverlay').css({ 'display': 'flex' }).hide().fadeIn(400);
+    }
+  });
+  $('#unlockBtn').on('click', function () {
+    $('#lockOverlay').fadeOut(400, function () {
+      $('body').css('overflow', '');
+      lockTriggered = false; // allow re-trigger if needed — set true to prevent
+      lockTriggered = true;  // lock once only
+    });
+  });
+
+  /* ══════════════════════════════════════════
+     25. DARK MODE TOGGLE
+  ══════════════════════════════════════════ */
+  var isLight = false;
+  $('#darkModeToggle').on('click', function () {
+    if (!isLight) {
+      $('body').removeClass('dark-mode').addClass('light-mode');
+      $(this).html('<i class="fa-solid fa-sun"></i> Light Mode');
+      isLight = true;
+    } else {
+      $('body').removeClass('light-mode').addClass('dark-mode');
+      $(this).html('<i class="fa-solid fa-moon"></i> Dark Mode');
+      isLight = false;
+    }
+  });
+
+  /* ══════════════════════════════════════════
+     26. AUTO MODAL after 10 seconds
+  ══════════════════════════════════════════ */
+  setTimeout(function () {
+    var modal = new bootstrap.Modal(document.getElementById('autoModal'));
+    modal.show();
+  }, 10000);
+
+  /* ══════════════════════════════════════════
+     27. TYPING ANIMATION FOR HERO TITLE
+  ══════════════════════════════════════════ */
+  var heroText = 'MASTER THE BOARD';
+  var $heroSpan = $('<span>');
+  $('#heroTitle').html(
+    '<i class="fa-solid fa-chess-king"></i> '
+  ).append($heroSpan).append(' <i class="fa-solid fa-chess-king"></i>');
+  var i = 0;
+  function typeHero() {
+    if (i <= heroText.length) {
+      $heroSpan.text(heroText.substring(0, i));
+      i++;
+      setTimeout(typeHero, 80);
+    } else {
+      $('#heroTitle').removeClass('typing-cursor');
+    }
+  }
+  typeHero();
+
+  /* ══════════════════════════════════════════
+     28. BACKGROUND IMAGE SLIDER (hero section)
+  ══════════════════════════════════════════ */
+  var heroBgs = [
+    "linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('unnamed.jpg') no-repeat center center",
+    "linear-gradient(rgba(0,0,50,0.7),rgba(0,0,0,0.6)), url('unnamed.jpg') no-repeat center top",
+    "linear-gradient(rgba(50,30,0,0.7),rgba(0,0,0,0.6)), url('unnamed.jpg') no-repeat center bottom",
+  ];
+  var heroBgIdx = 0;
+  setInterval(function () {
+    heroBgIdx = (heroBgIdx + 1) % heroBgs.length;
+    $('#home').css({ 'background': heroBgs[heroBgIdx], 'background-size': 'cover' });
+  }, 5000);
+
+}); // end document.ready
+</script>
 </body>
 </html>
